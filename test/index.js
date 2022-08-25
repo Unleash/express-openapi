@@ -81,6 +81,19 @@ suite(name, function () {
       })
   })
 
+  test('serves onload function in swagger-ui-init.js file', function (done) {
+    const app = express()
+    app.use(openapi().swaggerui)
+    supertest(app)
+      .get(`${openapi.defaultRoutePrefix}/swagger-ui-init.js`)
+      .end((err, res) => {
+        console.log(res.text)
+        assert(!err, err)
+        assert(res.text.includes('window.onload = function () {'))
+        done()
+      })
+  })
+
   test('load routes from the express app', function (done) {
     const app = express()
     const oapi = openapi()
