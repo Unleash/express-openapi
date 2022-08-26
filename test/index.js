@@ -87,7 +87,6 @@ suite(name, function () {
     supertest(app)
       .get(`${openapi.defaultRoutePrefix}/swagger-ui-init.js`)
       .end((err, res) => {
-        console.log(res.text)
         assert(!err, err)
         assert(res.text.includes('window.onload = function () {'))
         done()
